@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo +++++++++++++++++++++++++++
 echo PART I
 echo Installing dependencies
