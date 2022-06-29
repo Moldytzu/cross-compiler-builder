@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export BINUTILS_VERSION=2.38
+export GCC_VERSION=12.1.0
+
 echo +++++++++++++++++++++++++++
 echo PART I
 echo Installing dependencies
@@ -14,19 +17,19 @@ echo +++++++++++++++++++++++++++
 
 cd /tmp/
 
-wget https://ftp.gnu.org/gnu/binutils/binutils-2.37.tar.xz
-wget https://ftp.gnu.org/gnu/gcc/gcc-11.2.0/gcc-11.2.0.tar.xz
+wget https://ftp.gnu.org/gnu/binutils/binutils-$BINUTILS_VERSION.tar.xz
+wget https://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/gcc-$GCC_VERSION.tar.xz
 
 echo +++++++++++++++++++++++++++
 echo PART III
 echo Expanding sources
 echo +++++++++++++++++++++++++++
 
-unxz binutils-2.37.tar.xz
-unxz gcc-11.2.0.tar.xz
+unxz binutils-$BINUTILS_VERSION.tar.xz
+unxz gcc-$GCC_VERSION.tar.xz
 
-tar -xvf binutils-2.37.tar
-tar -xvf gcc-11.2.0.tar
+tar -xvf binutils-$BINUTILS_VERSION.tar
+tar -xvf gcc-$GCC_VERSION.tar
 
 echo +++++++++++++++++++++++++++
 echo PART IV
@@ -47,7 +50,7 @@ echo +++++++++++++++++++++++++++
 
 mkdir build-binutils
 cd build-binutils
-../binutils-2.37/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+../binutils-$BINUTILS_VERSION/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
 make
 make install
 
@@ -60,7 +63,7 @@ cd ..
 
 mkdir build-gcc
 cd build-gcc
-../gcc-11.2.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+../gcc-$GCC_VERSION/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
 make all-gcc
 make all-target-libgcc
 make install-gcc
