@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export BINUTILS_VERSION=2.38
-export GCC_VERSION=12.1.0
+export BINUTILS_VERSION=2.40
+export GCC_VERSION=13.1.0
 
 echo +++++++++++++++++++++++++++
 echo PART I
@@ -51,7 +51,7 @@ echo +++++++++++++++++++++++++++
 mkdir build-binutils
 cd build-binutils
 ../binutils-$BINUTILS_VERSION/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
-make
+make -j$(nproc)
 make install
 
 echo +++++++++++++++++++++++++++
@@ -64,7 +64,7 @@ cd ..
 mkdir build-gcc
 cd build-gcc
 ../gcc-$GCC_VERSION/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
-make all-gcc
-make all-target-libgcc
+make all-gcc -j$(nproc)
+make all-target-libgcc -j$(nproc)
 make install-gcc
 make install-target-libgcc
